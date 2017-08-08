@@ -1,0 +1,135 @@
+# Methodology
+
+This is a study about the effects of vitamin C over the number of odontoblasts (cells responsible for tooth growth) of 60 guinea-pigs. If the number of odontoblasts grows, so does the teeth of the pigs.
+
+Each pig received one of three different dosages of vitamin C: 0.5, 1 or 2 mg/day.
+
+Each pig was treated by one of two different delivery methods: via orange juice or via ascorbic acid (VC)
+
+We are going to test some hypothesis about the vitamin C influence over tooth growth.
+
+There is not a control group.
+
+# Summary of the data
+
+Here is a brief summary of data:
+
+```{r}
+dados <- ToothGrowth
+str(dados)
+```
+
+
+```{r}
+summary(dados)
+```
+
+```{r fig.cap="Tooth Growth data", cache=TRUE}
+plt <- ggplot(dados, aes(x=dose, y=len, group=supp, color=supp))
+plt <- plt + geom_point() + 
+        theme(plot.title = element_text(hjust = 0.5)) +
+        labs(title="Tooth Growth", y="Growth", x="Dose")
+
+plt
+```
+
+
+OJ means Orange Juice while VC means ascorbic acid.
+
+
+# Hypothesis testing
+
+## Vitamin C Dosis
+
+Since the pigs were treated with different doses of Vitamin C, the first question we need to address is whether the amount of vitamin C administered to each pig does any difference in their tooth growth.
+
+The different doses were:
+
+```{r}
+unique(dados$dose)
+```
+
+So, since there is not a control group, lets test the hypothesis that the doses matter: is the growth associated with the 2.0 mg doses greater than the growth associated with 0.5 doses?
+
+$$H_0: \mu_{0.5 mg} = \mu_{2.0 mg} \leftrightarrow H_\alpha: \mu_{2.0 mg} > \mu_{0.5 mg} $$
+
+Lets split the 2 groups and test the hypothesis through a one-sided T-test 
+
+```{r echo=TRUE}
+g05 <- subset(dados$len, dados$dose == 0.5)
+g2 <- subset(dados$len, dados$dose == 2)
+
+t.test(g2, g05, alternative = "greater", paired = FALSE, var.equal = FALSE)
+```
+
+Notice the very small p-value. 
+
+Just for comparison, lets do this test *by hand* through its confidence interval:
+
+```{r echo=TRUE}
+n2 <- length(g2)
+n05 <- length(g05)
+sd2 <- sd(g2)
+sd05 <- sd(g05)
+se1 <- sqrt(((n2-1)*sd2^2 + (n05-1)*sd05^2) / (n2 + n05 -2))
+se2 <- sqrt(1/n2 + 1/n05)
+se <- se1*se2
+ci <- mean(g2) - mean(g05) + c(-1,1)*qt(.95,df = (n2+n05 -2))*se
+ci <- round(ci,2)
+ci
+```
+Notice that 0 isn't in the confidence interval, so $\mu_{0.5 mg} - \mu_{2.0 mg} \neq 0$, ever!
+The true difference of means will always be between `r ci` mm.
+
+
+We can infer by this 95% test that $H_0$ must be rejected and therefore, **a larger dosis results in larger tooth growth!**
+
+## Vitamin C Delivery Method
+
+What is the best delivery method? 
+
+The delivery methods are:
+
+```{r}
+unique(dados$supp)
+```
+
+OJ means Orange Juice while VC means ascorbic acid.
+
+```{r fig.cap="Tooth Growth by delivery method", cache=TRUE}
+plt <- ggplot(dados, aes(x=supp, y=len, group=factor(dose), color=factor(dose)))
+plt <- plt + geom_point() + 
+        theme(plot.title = element_text(hjust = 0.5)) +
+        labs(title="Tooth Growth", y="Growth", x="Delivery Method")
+
+plt
+```
+
+
+Lets test the null hypothesis that the deliver methods yields the same results:
+
+$$H_0: \mu_{juice} = \mu_{acid} \leftrightarrow H_\alpha: \mu_{juice} \neq \mu_{acid}$$ 
+
+The first thing to do is to separate the data between the two delivery methods and then run a two-sided T-test on the groups.
+
+
+```{r echo=TRUE}
+
+juicers <- subset(dados$len, dados$supp=="OJ")
+trippin <- subset(dados$len, dados$supp=="VC")
+
+t.test(juicers, trippin, paired = FALSE, var.equal = FALSE, alternative = "two.sided")
+```
+
+Interesting enough, the T-test yields a confidence interval and a p-value that led us to **fail to reject $H_0$.**
+
+Therefore, **the two delivery methods produces the same results**
+
+
+# Results
+
+As we can see through the T-tests performed, we can infer that:
+
+1. a larger doses results in larger tooth growth
+1. the two delivery methods produces the same results
+

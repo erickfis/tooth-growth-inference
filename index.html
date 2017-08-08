@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="erickfis, 2017 agosto, 08" />
+
+
+<title>Tooth Growth Study</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link rel="stylesheet" href="index_files/style.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<section class="page-header">
+<h1 class="title toc-ignore project-name">Tooth Growth Study</h1>
+<h3 class="subtitle project-tagline">Inferential Statistics</h3>
+<h4 class="author project-author">erickfis, 2017 agosto, 08</h4>
+</section>
+
+
+<div id="TOC" class="toc">
+<ul>
+<li><a href="#methodology">Methodology</a></li>
+<li><a href="#summary-of-the-data">Summary of the data</a></li>
+<li><a href="#hypothesis-testing">Hypothesis testing</a><ul>
+<li><a href="#vitamin-c-dosis">Vitamin C Dosis</a></li>
+<li><a href="#vitamin-c-delivery-method">Vitamin C Delivery Method</a></li>
+</ul></li>
+<li><a href="#results">Results</a></li>
+</ul>
+</div>
+
+<section class="main-content">
+<div id="methodology" class="section level1">
+<h1>Methodology</h1>
+<p>This is a study about the effects of vitamin C over the number of odontoblasts (cells responsible for tooth growth) of 60 guinea-pigs. If the number of odontoblasts grows, so does the teeth of the pigs.</p>
+<p>Each pig received one of three different dosages of vitamin C: 0.5, 1 or 2 mg/day.</p>
+<p>Each pig was treated by one of two different delivery methods: via orange juice or via ascorbic acid (VC)</p>
+<p>We are going to test some hypothesis about the vitamin C influence over tooth growth.</p>
+<p>There is not a control group.</p>
+</div>
+<div id="summary-of-the-data" class="section level1">
+<h1>Summary of the data</h1>
+<p>Here is a brief summary of data:</p>
+<pre><code>## &#39;data.frame&#39;:    60 obs. of  3 variables:
+##  $ len : num  4.2 11.5 7.3 5.8 6.4 10 11.2 11.2 5.2 7 ...
+##  $ supp: Factor w/ 2 levels &quot;OJ&quot;,&quot;VC&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ dose: num  0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 ...</code></pre>
+<pre><code>##       len        supp         dose      
+##  Min.   : 4.20   OJ:30   Min.   :0.500  
+##  1st Qu.:13.07   VC:30   1st Qu.:0.500  
+##  Median :19.25           Median :1.000  
+##  Mean   :18.81           Mean   :1.167  
+##  3rd Qu.:25.27           3rd Qu.:2.000  
+##  Max.   :33.90           Max.   :2.000</code></pre>
+<div class="figure">
+<img src="index_files/figure-html/unnamed-chunk-4-1.png" alt="Tooth Growth data" />
+<p class="caption">Tooth Growth data</p>
+</div>
+<p>OJ means Orange Juice while VC means ascorbic acid.</p>
+</div>
+<div id="hypothesis-testing" class="section level1">
+<h1>Hypothesis testing</h1>
+<div id="vitamin-c-dosis" class="section level2">
+<h2>Vitamin C Dosis</h2>
+<p>Since the pigs were treated with different doses of Vitamin C, the first question we need to address is whether the amount of vitamin C administered to each pig does any difference in their tooth growth.</p>
+<p>The different doses were:</p>
+<pre><code>## [1] 0.5 1.0 2.0</code></pre>
+<p>So, since there is not a control group, lets test the hypothesis that the doses matter: is the growth associated with the 2.0 mg doses greater than the growth associated with 0.5 doses?</p>
+<p><span class="math display">\[H_0: \mu_{0.5 mg} = \mu_{2.0 mg} \leftrightarrow H_\alpha: \mu_{2.0 mg} &gt; \mu_{0.5 mg} \]</span></p>
+<p>Lets split the 2 groups and test the hypothesis through a one-sided T-test</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g05 &lt;-<span class="st"> </span><span class="kw">subset</span>(dados$len, dados$dose ==<span class="st"> </span><span class="fl">0.5</span>)
+g2 &lt;-<span class="st"> </span><span class="kw">subset</span>(dados$len, dados$dose ==<span class="st"> </span><span class="dv">2</span>)
+
+<span class="kw">t.test</span>(g2, g05, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>, <span class="dt">paired =</span> <span class="ot">FALSE</span>, <span class="dt">var.equal =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  g2 and g05
+## t = 11.799, df = 36.883, p-value = 0.00000000000002199
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  13.27926      Inf
+## sample estimates:
+## mean of x mean of y 
+##    26.100    10.605</code></pre>
+<p>Notice the very small p-value.</p>
+<p>Just for comparison, lets do this test <em>by hand</em> through its confidence interval:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n2 &lt;-<span class="st"> </span><span class="kw">length</span>(g2)
+n05 &lt;-<span class="st"> </span><span class="kw">length</span>(g05)
+sd2 &lt;-<span class="st"> </span><span class="kw">sd</span>(g2)
+sd05 &lt;-<span class="st"> </span><span class="kw">sd</span>(g05)
+se1 &lt;-<span class="st"> </span><span class="kw">sqrt</span>(((n2<span class="dv">-1</span>)*sd2^<span class="dv">2</span> +<span class="st"> </span>(n05<span class="dv">-1</span>)*sd05^<span class="dv">2</span>) /<span class="st"> </span>(n2 +<span class="st"> </span>n05 -<span class="dv">2</span>))
+se2 &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">1</span>/n2 +<span class="st"> </span><span class="dv">1</span>/n05)
+se &lt;-<span class="st"> </span>se1*se2
+ci &lt;-<span class="st"> </span><span class="kw">mean</span>(g2) -<span class="st"> </span><span class="kw">mean</span>(g05) +<span class="st"> </span><span class="kw">c</span>(-<span class="dv">1</span>,<span class="dv">1</span>)*<span class="kw">qt</span>(.<span class="dv">95</span>,<span class="dt">df =</span> (n2+n05 -<span class="dv">2</span>))*se
+ci &lt;-<span class="st"> </span><span class="kw">round</span>(ci,<span class="dv">2</span>)
+ci</code></pre></div>
+<pre><code>## [1] 13.28 17.71</code></pre>
+<p>Notice that 0 isn’t in the confidence interval, so <span class="math inline">\(\mu_{0.5 mg} - \mu_{2.0 mg} \neq 0\)</span>, ever! The true difference of means will always be between 13.28, 17.71 mm.</p>
+<p>We can infer by this 95% test that <span class="math inline">\(H_0\)</span> must be rejected and therefore, <strong>a larger dosis results in larger tooth growth!</strong></p>
+</div>
+<div id="vitamin-c-delivery-method" class="section level2">
+<h2>Vitamin C Delivery Method</h2>
+<p>What is the best delivery method?</p>
+<p>The delivery methods are:</p>
+<pre><code>## [1] VC OJ
+## Levels: OJ VC</code></pre>
+<p>OJ means Orange Juice while VC means ascorbic acid.</p>
+<div class="figure">
+<img src="index_files/figure-html/unnamed-chunk-9-1.png" alt="Tooth Growth by delivery method" />
+<p class="caption">Tooth Growth by delivery method</p>
+</div>
+<p>Lets test the null hypothesis that the deliver methods yields the same results:</p>
+<p><span class="math display">\[H_0: \mu_{juice} = \mu_{acid} \leftrightarrow H_\alpha: \mu_{juice} \neq \mu_{acid}\]</span></p>
+<p>The first thing to do is to separate the data between the two delivery methods and then run a two-sided T-test on the groups.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">juicers &lt;-<span class="st"> </span><span class="kw">subset</span>(dados$len, dados$supp==<span class="st">&quot;OJ&quot;</span>)
+trippin &lt;-<span class="st"> </span><span class="kw">subset</span>(dados$len, dados$supp==<span class="st">&quot;VC&quot;</span>)
+
+<span class="kw">t.test</span>(juicers, trippin, <span class="dt">paired =</span> <span class="ot">FALSE</span>, <span class="dt">var.equal =</span> <span class="ot">FALSE</span>, <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  juicers and trippin
+## t = 1.9153, df = 55.309, p-value = 0.06063
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.1710156  7.5710156
+## sample estimates:
+## mean of x mean of y 
+##  20.66333  16.96333</code></pre>
+<p>Interesting enough, the T-test yields a confidence interval and a p-value that led us to <strong>fail to reject <span class="math inline">\(H_0\)</span>.</strong></p>
+<p>Therefore, <strong>the two delivery methods produces the same results</strong></p>
+</div>
+</div>
+<div id="results" class="section level1">
+<h1>Results</h1>
+<p>As we can see through the T-tests performed, we can infer that:</p>
+<ol style="list-style-type: decimal">
+<li>a larger doses results in larger tooth growth</li>
+<li>the two delivery methods produces the same results</li>
+</ol>
+</div>
+</section>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
